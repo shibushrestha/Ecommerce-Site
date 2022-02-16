@@ -3,7 +3,7 @@
 {% block content%}
 {% load static %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'store/Css/Login.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'store/Css/login.css' %}">
 
 <form class="login-form" action="{% url 'login' %}" method="post">
     {% csrf_token %}

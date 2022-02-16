@@ -1,7 +1,6 @@
 from django.http import JsonResponse
 import json
 from django.shortcuts import redirect, render
-from django.contrib.auth.models import User
 from .forms import UserRegisterForm
 
 from store.models import Product, Order, OrderedItem
@@ -68,30 +67,14 @@ def update_cart(request):
 
 
 
-
-
 # This view is for the user registration.
 def register_user(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():
-            username = form.cleaned_data.get('username')
-            first_name = form.cleaned_data.get('first_name')  
-            last_name = form.cleaned_data.get('last_name')  
-            email = form.cleaned_data.get('email')
-           
-            password = form.cleaned_data.get('password')  
-            
-            user = User.objects.create_user(
-                username = username,
-                first_name = first_name,
-                last_name = last_name,
-                email = email,
-               
-            )
-            user.set_password(password)
-            user.save()
+            form.save()
             return redirect('login')
+
     else:
         form = UserRegisterForm()
     return render(request, 'store/register.html', {'form':form})
