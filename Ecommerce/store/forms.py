@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
+from store.models import UserProfile
+
 
 class UserRegisterForm(forms.ModelForm):
     password2 = forms.CharField(max_length=100, widget=forms.PasswordInput)
@@ -36,3 +38,9 @@ class UserRegisterForm(forms.ModelForm):
         password2 = cleaned_data.get('password2')
         if password and password2 and password != password2:
             raise ValidationError(_("Please enter same passwords."), code="password_mismatch")
+
+
+class UserProfileForm(forms.ModelForm):
+    class Meta():
+        model = UserProfile
+        fields = ['address', 'city', 'mobile_number']

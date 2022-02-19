@@ -4,11 +4,11 @@
 {% load static %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'store/Css/login.css' %}">
+ <p style="color: white;">{{ form.non_field_errors }}</p>
 
 <form class="login-form" action="{% url 'login' %}" method="post">
     {% csrf_token %}
-    <h3 class="text" class="h_style">You must Login to use the app.</h3>
-    {{ form.non_field_errors }}
+   
     {{ form.username}}
     {{ form.password }}<br>
     <input class="input-btn" type="submit" value="Login">
@@ -18,7 +18,6 @@
     <a href="#" class="btnf">Log in with Facebook</a><br>
     <p class="text">Don't have an account?<a class="link" href="#">Create an account</a></p>
 </form>
-
 <script>
     document.getElementById("id_username").placeholder = "Username";
     document.getElementById("id_password").placeholder = "Enter password";

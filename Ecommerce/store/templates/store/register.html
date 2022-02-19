@@ -3,7 +3,7 @@
 {% block content%}
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'store/Css/register.css' %}">
-<form class="container" action="{% url 'register' %}" method="post" novalidate>
+<form class="register-form" action="{% url 'register' %}" method="post" novalidate>
     {% csrf_token %}
     <h2 class="h-style">Create an Account</h2><br>
         
