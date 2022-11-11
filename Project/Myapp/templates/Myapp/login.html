@@ -1,0 +1,35 @@
+{% extends 'Myapp/main.html' %}
+
+{% block content%}
+    {% load static %}
+
+
+    <!-- display a one time message after a user successfully creates an account-->
+    {% if messages %}
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    {% endif %}
+
+    <!-- A form for logging a user -->
+    <form action="" method="post">
+        {% csrf_token %}
+        <h3>You must Login to use the app.</h3>
+        {{ form.non_field_errors }}
+        {{ form.username}}
+        {{ form.password }}<br>
+        <input type="hidden" name="next" value="{{ next }}">
+        <input class="btn btn-dark" type="submit" value="Login">
+        <br>
+        <p>Or login with the following accounts.</p>
+        <a href="#" class="btng">Log in with Gmail</a>
+        <a href="#" class="btnf">Log in with Facebook</a><br>
+        <p>Don't have an account?<a href="">Create an account</a></p>
+    </form>
+
+    <script>
+        document.getElementById("id_username").placeholder = "Username";
+        document.getElementById("id_password").placeholder = "Enter password";
+    </script>
+
+{% endblock %}

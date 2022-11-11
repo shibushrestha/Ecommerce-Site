@@ -1,0 +1,94 @@
+{% extends 'Myapp/main.html' %}
+{% load static %}
+{% block content%}
+
+
+<style>
+    .zoom {
+      transition: transform .2s; /* Animation */
+      width: 320px;
+      height: 200px;
+    }
+    
+    .zoom:hover {
+      transform: scale(1.3); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+    }
+    .container-lg{
+        margin-top: 90px;
+        margin-left: 70px;
+        margin-bottom: 50px;
+    }
+    #orderQty{
+        text-align:center;
+        width:35px;
+        height:33px;
+        margin-left:3px;
+        margin-right:3px;
+    }
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+    -moz-appearance: textfield;
+    }
+</style>
+{% if product %}
+    <div class="container-lg">
+        <div class="row">
+            <div class="col-4" style="border:5px solid #f8f9fa;">
+                <img class="col-4 zoom" src="{{ product.product_image.url }}">
+            </div>
+            <div class="col-4" style="background-color: #f8f9fa;">
+                <h6>{{ product.product_name }}</h6>
+
+                <p>Rs. {{ product.price }} </p>
+                <!--Quantity-->
+                <div>
+                    <form action="{% url 'Myapp:order' product.id %}" method="post">
+                        {% csrf_token %}
+                        
+                        <div style="display:flex;">
+                            <i style="font-size:2rem;" id="subQty" onclick="subQty()" class="bi bi-dash-square-fill"></i>
+                            <input class="input-group mt-2" type="number" id="orderQty" name="quantity" value="1" maxlength="1" size="1" readonly>
+                            <i style="font-size:2rem;" id="addQty" onclick="addQty()" class="bi bi-plus-square-fill"></i>
+                        </div>
+        
+                        <input style="width:100px;" class="btn btn-warning" type="submit" value="Buy">
+                        <button data-product="{{product.id }}" id="addToCart" class="btn btn-success">Add to cart</button>
+                    </form>
+                    
+                    
+                </div> 
+            </div>
+        </div>
+        
+    </div>
+
+    <!-- Rewiews different user gave for the product-->
+    <div class="container-lg">
+        <h3>Reviews</h3>
+        {% for review in product.review_set.all %}
+                <div>
+                    <h6>{{ review.user.username }}</h6>
+                    <p>{{ review.review }}</p>
+                </div>
+        {% endfor %}
+            
+            {% for products in similarProducts %}
+                <div>
+                    <img src={{ products.product_image.url }}>
+                    <p>{{ products.product_name }}</p>
+                    <p>{{ products.price }}</p>
+
+                </div>
+            {% endfor %}
+
+    </div>
+{% endif %}
+<script type="text/javascript" src="{% static '/Myapp/JS/main.js'%}"></script>
+{% endblock %}

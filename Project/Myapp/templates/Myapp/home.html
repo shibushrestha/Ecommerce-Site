@@ -1,0 +1,31 @@
+{% extends 'Myapp/main.html' %}
+
+{% block content%}
+	
+	
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'Myapp/Css/home.css' %}">
+
+	{% if page_obj %}
+		<div class="container">
+			{% for products in page_obj %}
+				<a class="card" href=" {{ products.get_absolute_url }}">
+					<img class="img-container" src="{{ products.product_image.url }}">
+					<div class="card-profile">
+						<p class="text">{{ products.product_name }}</p>		
+						<p class="text">Rs.{{ products.price}}</p>
+						
+					</div>
+				</a>
+			{% endfor %}
+		</div>
+
+		<div class="pagination">
+		{% for page in page_obj.paginator.page_range %}
+			<a style="margin-right:2px;"href="?page={{forloop.counter}}">{{forloop.counter}}</a>
+			
+		{% endfor %}
+		</div>
+	{% endif %}
+
+{% endblock %}

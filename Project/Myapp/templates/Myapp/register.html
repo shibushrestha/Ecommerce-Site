@@ -1,0 +1,34 @@
+{% extends 'Myapp/main.html' %}
+{% load static %}
+
+{% block content%}
+
+
+<div class="row justify-content-center" >
+    <div class="col-8">
+        <form action="/Myapp/register/" method="post" novalidate>
+        {% csrf_token %}
+        <div class="col">
+            {{ form.username }}
+            {{ form.errors.username }}
+        </div>
+        
+        <div class="col">        
+            {{ form.email }}
+            {{ form.address }}
+        </div>
+        <div class="col">
+            {{ form.password1 }}
+        </div>    
+        <div class="col">
+
+            {{ form.password2 }}
+            {{ form.errors.password2 }}
+        </div>
+            <input class="btn btn-dark" type="submit" value="Sign Up">
+            <br><br>
+            <p>Already have an account?<a href="/Myapp/login">Login</a></p>
+        </form>
+    </div>
+</div>
+{% endblock %}
